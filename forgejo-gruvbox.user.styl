@@ -19,8 +19,6 @@
     'Dark Hard': 'dark-hard-theme-variant'
 }
 
-
-
 ==/UserStyle== */
 @-moz-document domain("codeberg.org"),
 domain("git.disroot.org"),
@@ -581,20 +579,20 @@ domain("code.forgejo.org") {
     .ui.green.button:hover {
         background: var(--green-btn-hover);
         background-color: var(--green-btn-hover);
-        color: var(--ansi00)
+        color: var(--ansi00) !important
     }
     .ui.labeled.button.disabled > .button,
     .ui.basic.buttons .button,
     .ui.basic.button {
-        color: #e78a4e
+        color: var(--ansi15) !important
     }
     .ui.labeled.button.disabled > .button:hover,
     .ui.basic.buttons .button:hover,
     .ui.basic.button:hover {
-        color: #e78a4e
+        color: var(--ansi15) !important
     }
     .repo-title {
-        color: #e78a4e
+        color: #e78a4e !important
     }
     .repo-buttons button[disabled] ~ .label,
     .repo-buttons .ui.labeled.button.disabled > .label {
@@ -602,22 +600,22 @@ domain("code.forgejo.org") {
     }
     .ui.basic.labels .label,
     .ui.basic.label {
-        color: #a9b665
+        color: #a9b665 !important
     }
     .repository .ui.segment.sub-menu .list .item a:hover,
     .ui.tabular.menu .item:hover {
-        color: var(--color-text-hover)
+        color: var(--color-text-hover) !important
     }
     .ui.primary.labels .label,
     .ui.ui.ui.primary.label {
-        color: #282828
+        color: #282828 !important
     }
     .ui.green.labels .label,
     .ui.ui.ui.green.label {
-        color: var(--ansi00)
+        color: var(--ansi00) !important
     }
     i.grey.icon.icon.icon.icon {
-        color: var(--ansi08)
+        color: var(--ansi08) !important
     }
     * {
         scrollbar-color: #e78a4e transparent !important
@@ -638,50 +636,50 @@ domain("code.forgejo.org") {
         box-shadow: inset 0 0 0 6px #e78a4e !important
     }
     ::-webkit-scrollbar-corner {
-        background: transparent
+        background: transparent !important
     }
     .ui.red.labels .label,
     .ui.ui.ui.red.label,
     .ui.red.button,
     .ui.red.buttons .button {
-        background: var(--ansi01);
-        background-color: var(--ansi01);
-        color: #ffffff
+        background: var(--ansi01) !important;
+        background-color: var(--ansi01) !important;
+        color: #ffffff !important
     }
     .ui.red.labels .label:hover,
     .ui.ui.ui.red.label:hover,
     .ui.red.button:hover,
     .ui.red.buttons .button:hover {
-        background: rgba(204, 36, 29, 0.8);
-        background-color: rgba(204, 36, 29, 0.8);
+        background: rgba(204, 36, 29, 0.8) !important;
+        background-color: rgba(204, 36, 29, 0.8) !important;
         color: #ffffff
     }
     .ui.grey.labels .label,
     .ui.ui.ui.grey.label,
     .ui.grey.button,
     .ui.grey.buttons .button {
-        color: var(--ansi15)
+        color: var(--ansi15) !important
     }
     .ui.grey.labels .label:hover,
     .ui.ui.ui.grey.label:hover,
     .ui.grey.button:hover,
     .ui.grey.buttons .button:hover {
-        color: var(--ansi15)
+        color: var(--ansi15) !important
     }
     .ui.orange.labels .label,
     .ui.ui.ui.orange.label,
     .ui.orange.button,
     .ui.orange.buttons .button {
-        background: #e78a4e;
-        background-color: #e78a4e;
-        color: #282828
+        background: #e78a4e !important;
+        background-color: #e78a4e !important;
+        color: #282828 !important
     }
     .ui.orange.labels .label:hover,
     .ui.ui.ui.orange.label:hover,
     .ui.orange.button:hover,
     .ui.orange.buttons .button:hover {
-        background: rgba(231, 138, 78, 0.8);
-        background-color: rgba(231, 138, 78, 0.8);
-        color: #282828
+        background: rgba(231, 138, 78, 0.8) !important;
+        background-color: rgba(231, 138, 78, 0.8) !important;
+        color: #282828 !important
     }
 }
