@@ -1,0 +1,138 @@
+#!/usr/bin/env bash
+#
+# diag-merge — Merge two images with a diagonal triangular split.
+#
+set -euo pipefail
+
+# ── Defaults ──────────────────────────────────────────────────────────
+REVERSE=0
+BLUR=0
+SIZE=""
+
+# ── Usage ─────────────────────────────────────────────────────────────
+usage() {
+    cat <<'EOF'
+Usage: diag-merge [options] <image_a> <image_b> <output>
+
+Merge two images into one using a diagonal triangular split.
+
+Options:
+  --reverse         Swap the diagonal direction
+  --blur RADIUS     Feather the diagonal edge (Gaussian blur radius)
+  --size WxH|N      Target output size (e.g., 1920x1080 or 1024 for square)
+  -h, --help        Show this help and exit
+EOF
+    exit 0
+}
+
+# ── Parse arguments ───────────────────────────────────────────────────
+POSITIONAL=()
+while [[ $# -gt 0 ]]; do
+    case "$1" in
+        --reverse)      REVERSE=1;            shift ;;
+        --blur)         BLUR="${2?--blur needs a value}";  shift 2 ;;
+        --size)         SIZE="${2?--size needs a value}";   shift 2 ;;
+        -h|--help)      usage ;;
+        --*)            echo "Error: unknown option $1" >&2; exit 1 ;;
+        *)              POSITIONAL+=("$1");   shift ;;
+    esac
+done
+
+if [[ ${#POSITIONAL[@]} -ne 3 ]]; then
+    echo "Error: expected 3 positional arguments (got ${#POSITIONAL[@]})" >&2
+    echo "Usage: diag-merge [options] <image_a> <image_b> <output>" >&2
+    exit 1
+fi
+
+IMAGE_A="${POSITIONAL[0]}"
+IMAGE_B="${POSITIONAL[1]}"
+OUTPUT="${POSITIONAL[2]}"
+
+# ── Validate inputs ──────────────────────────────────────────────────
+command -v magick &>/dev/null || { echo "Error: ImageMagick (magick v7) not found" >&2; exit 1; }
+[[ -f "$IMAGE_A" ]] || { echo "Error: file not found: $IMAGE_A" >&2; exit 1; }
+[[ -f "$IMAGE_B" ]] || { echo "Error: file not found: $IMAGE_B" >&2; exit 1; }
+[[ "$BLUR" =~ ^[0-9]+(\.[0-9]+)?$ ]] || { echo "Error: --blur must be a positive number" >&2; exit 1; }
+
+# ── Determine target size ─────────────────────────────────────────────
+if [[ -n "$SIZE" ]]; then
+    if [[ "$SIZE" =~ ^([0-9]+)x([0-9]+)$ ]]; then
+        W="${BASH_REMATCH[1]}"
+        H="${BASH_REMATCH[2]}"
+    elif [[ "$SIZE" =~ ^[0-9]+$ ]]; then
+        W="$SIZE"; H="$SIZE"
+    else
+        echo "Error: --size must be WxH (e.g. 1920x1080) or a single number for square" >&2
+        exit 1
+    fi
+else
+    WA_HA=$(magick identify -format "%w %h" "${IMAGE_A}[0]")
+    WB_HB=$(magick identify -format "%w %h" "${IMAGE_B}[0]")
+    read -r WA HA <<< "$WA_HA"
+    read -r WB HB <<< "$WB_HB"
+    W=$(( WA > WB ? WA : WB ))
+    H=$(( HA > HB ? HA : HB ))
+fi
+
+# ── Temp files ────────────────────────────────────────────────────────
+A_TMP=$(mktemp /tmp/diag_a_XXXXX.miff)
+B_TMP=$(mktemp /tmp/diag_b_XXXXX.miff)
+MASK_TMP=$(mktemp /tmp/diag_mask_XXXXX.miff)
+trap 'rm -f "$A_TMP" "$B_TMP" "$MASK_TMP"' EXIT
+
+# ── Resize both images to the target size ─────────────────────────────
+magick "${IMAGE_A}[0]" -resize "${W}x${H}^" -gravity center -extent "${W}x${H}" "$A_TMP"
+magick "${IMAGE_B}[0]" -resize "${W}x${H}^" -gravity center -extent "${W}x${H}" "$B_TMP"
+
+# ── Create diagonal mask ──────────────────────────────────────────────
+#
+# Default:
+#   Top-left triangle BLACK, bottom-right triangle WHITE.
+#   mask=0 → overlay invisible → base (image_a) shows in top-left
+#   mask=1 → overlay opaque    → image_b shows in bottom-right
+#
+# Reverse:
+#   Top-left triangle WHITE, bottom-right triangle BLACK.
+#   mask=1 → overlay opaque    → image_b shows in top-left
+#   mask=0 → overlay invisible → base (image_a) shows in bottom-right
+#
+if [[ "$REVERSE" -eq 1 ]]; then
+    # black polygon covering bottom-right triangle
+    magick -size "${W}x${H}" xc:white -alpha off \
+        -fill black -draw "polygon $W,0 $W,$H 0,$H" "$MASK_TMP"
+else
+    # black polygon covering top-left triangle
+    magick -size "${W}x${H}" xc:white -alpha off \
+        -fill black -draw "polygon 0,0 $W,0 0,$H" "$MASK_TMP"
+fi
+
+# ── Feather the diagonal edge ─────────────────────────────────────────
+if [[ "$BLUR" != "0" ]]; then
+    magick "$MASK_TMP" -blur 0x"$BLUR" "$MASK_TMP"
+fi
+
+# ── Composite ─────────────────────────────────────────────────────────
+# Pipeline:
+#   1. Take image_b (overlay) and remove its alpha channel.
+#   2. Use CopyOpacity to transfer the mask's grayscale values as the
+#      overlay's new alpha channel.  Where mask = black → transparent,
+#      mask = white → fully opaque.
+#   3. Composite this masked overlay over image_a (base) using `Over`.
+#
+# The result: image_a occupies the mask's black region (top-left triangle
+# by default), image_b occupies the white region (bottom-right triangle).
+# When --blur is used, the mask has a smooth gradient along the diagonal,
+# producing a feathered blend at the seam.
+#
+# This approach is explicit and works correctly across ImageMagick
+# versions where the three-image composition mask may not apply as
+# expected.  The overlay's original alpha is replaced by the mask; for
+# overlays that already carry transparency, the mask would overwrite it.
+# If preserving both is needed, multiply the mask with the overlay's
+# alpha extract before CopyOpacity.
+#
+magick "$A_TMP" \
+    \( "$B_TMP" "$MASK_TMP" -alpha off -compose CopyOpacity -composite \) \
+    -compose Over -composite "$OUTPUT"
+
+echo "✓  Output: $OUTPUT  (${W}x${H})"
