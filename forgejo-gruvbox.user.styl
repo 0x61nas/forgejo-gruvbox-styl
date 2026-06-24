@@ -1,0 +1,555 @@
+/* ==UserStyle==
+@name           Forgejo Gruvbox
+@namespace      https://github.com/0x61nas
+@version        1.0.0
+@description    A new userstyle
+@author         Anas Elgarhy <anas.elgarhy.dev@gmail.com>
+@homepageURL    https://github.com/0x61nas/forgejo-gruvbox-styl
+@supportURL     https://github.com/0x61nas/forgejo-gruvbox-styl/issues
+@updateURL      https://raw.githubusercontent.com/0x61nas/forgejo-gruvbox-styl/aurora/forgejo-gruvbox.user.styl
+@preprocessor   stylus
+@license        CC-BY-SA-4.0
+
+@var select theme-variant "Gruvbox variant" {
+    'Light Soft' : 'light-soft-theme-variant',
+    'Light' : 'light-theme-variant',
+    'Light Hard': 'light-hard-theme-variant',
+    'Dark Soft' : 'dark-soft-theme-variant',
+    'Dark' : 'dark-theme-variant',
+    'Dark Hard': 'dark-hard-theme-variant'
+}
+
+
+
+==/UserStyle== */
+@-moz-document domain("codeberg.org"),
+domain("git.disroot.org"),
+domain("codefloe.com"),
+domain("bolha.dev"),
+domain("opencommit.eu"),
+domain("git.kaki87.net"),
+domain("code.forgejo.org") {
+    if theme-variant is light-soft-theme-variant {
+        :root {
+            --is-dark-theme: false !important;
+            --ansi00: #f2e5bc;
+            --ansi01: #cc241d;
+            --ansi02: #98971a;
+            --ansi03: #d79921;
+            --ansi04: #458588;
+            --ansi05: #b16286;
+            --ansi06: #689d6a;
+            --ansi07: #7c6f64;
+            --ansi08: #928374;
+            --ansi09: #9d0006;
+            --ansi10: #79740e;
+            --ansi11: #b57614;
+            --ansi12: #076678;
+            --ansi13: #8f3f71;
+            --ansi14: #427b58;
+            --ansi15: #3c3836;
+            --bg1: #ebdbb2;
+            --bg2: #d5c4a1;
+            --bg3: #bdae93;
+            --bg4: #a89984;
+            --fg-hover: rgba(60, 56, 54, 0.8);
+            --fg-focus: #282828;
+            --hover-bg: rgba(168, 153, 132, 0.3);
+            --active-bg: rgba(168, 153, 132, 0.3);
+            color-scheme: light;
+        }
+    }
+    else if theme-variant is light-theme-variant {
+        :root {
+            --is-dark-theme: false !important;
+            --ansi00: #fbf1c7;
+            --ansi01: #cc241d;
+            --ansi02: #98971a;
+            --ansi03: #d79921;
+            --ansi04: #458588;
+            --ansi05: #b16286;
+            --ansi06: #689d6a;
+            --ansi07: #7c6f64;
+            --ansi08: #928374;
+            --ansi09: #9d0006;
+            --ansi10: #79740e;
+            --ansi11: #b57614;
+            --ansi12: #076678;
+            --ansi13: #8f3f71;
+            --ansi14: #427b58;
+            --ansi15: #3c3836;
+            --bg1: #ebdbb2;
+            --bg2: #d5c4a1;
+            --bg3: #bdae93;
+            --bg4: #a89984;
+            --fg-hover: rgba(60, 56, 54, 0.8);
+            --fg-focus: #282828;
+            --hover-bg: rgba(168, 153, 132, 0.3);
+            --active-bg: rgba(168, 153, 132, 0.3);
+            color-scheme: light;
+        }
+    }
+    else if theme-variant is light-hard-theme-variant {
+        :root {
+            --is-dark-theme: false !important;
+            --ansi00: #f9f5d7;
+            --ansi01: #cc241d;
+            --ansi02: #98971a;
+            --ansi03: #d79921;
+            --ansi04: #458588;
+            --ansi05: #b16286;
+            --ansi06: #689d6a;
+            --ansi07: #7c6f64;
+            --ansi08: #928374;
+            --ansi09: #9d0006;
+            --ansi10: #79740e;
+            --ansi11: #b57614;
+            --ansi12: #076678;
+            --ansi13: #8f3f71;
+            --ansi14: #427b58;
+            --ansi15: #3c3836;
+            --bg1: #ebdbb2;
+            --bg2: #d5c4a1;
+            --bg3: #bdae93;
+            --bg4: #a89984;
+            --fg-hover: rgba(60, 56, 54, 0.8);
+            --fg-focus: #282828;
+            --hover-bg: rgba(168, 153, 132, 0.3);
+            --active-bg: rgba(168, 153, 132, 0.3);
+            color-scheme: light;
+        }
+    }
+    else if theme-variant is dark-soft-theme-variant {
+        :root {
+            --is-dark-theme: true !important;
+            --ansi00: #32302f;
+            --ansi01: #cc241d;
+            --ansi02: #98971a;
+            --ansi03: #d79921;
+            --ansi04: #458588;
+            --ansi05: #b16286;
+            --ansi06: #689d6a;
+            --ansi07: #a89984;
+            --ansi08: #928374;
+            --ansi09: #fb4934;
+            --ansi10: #b8bb26;
+            --ansi11: #fabd2f;
+            --ansi12: #83a598;
+            --ansi13: #d3869b;
+            --ansi14: #8ec07c;
+            --ansi15: #ebdbb2;
+            --bg1: #3c3836;
+            --bg2: #45403d;
+            --bg3: #504945;
+            --bg4: #5c534d;
+            --fg-hover: rgba(235, 219, 178, 0.8);
+            --fg-focus: #ffffff;
+            --hover-bg: rgba(80, 73, 69, 0.5);
+            --active-bg: rgba(80, 73, 69, 0.5);
+            color-scheme: dark;
+        }
+    }
+    else if theme-variant is dark-theme-variant {
+        :root {
+            --is-dark-theme: true !important;
+            --ansi00: #282828;
+            --ansi01: #cc241d;
+            --ansi02: #98971a;
+            --ansi03: #d79921;
+            --ansi04: #458588;
+            --ansi05: #b16286;
+            --ansi06: #689d6a;
+            --ansi07: #a89984;
+            --ansi08: #928374;
+            --ansi09: #fb4934;
+            --ansi10: #b8bb26;
+            --ansi11: #fabd2f;
+            --ansi12: #83a598;
+            --ansi13: #d3869b;
+            --ansi14: #8ec07c;
+            --ansi15: #ebdbb2;
+            --bg1: #32302f;
+            --bg2: #3c3836;
+            --bg3: #45403d;
+            --bg4: #504945;
+            --fg-hover: rgba(235, 219, 178, 0.8);
+            --fg-focus: #ffffff;
+            --hover-bg: rgba(80, 73, 69, 0.5);
+            --active-bg: rgba(80, 73, 69, 0.5);
+            color-scheme: dark;
+        }
+    }
+    else if theme-variant is dark-hard-theme-variant {
+        :root {
+            --is-dark-theme: true !important;
+            --ansi00: #1d2021;
+            --ansi01: #cc241d;
+            --ansi02: #98971a;
+            --ansi03: #d79921;
+            --ansi04: #458588;
+            --ansi05: #b16286;
+            --ansi06: #689d6a;
+            --ansi07: #a89984;
+            --ansi08: #928374;
+            --ansi09: #fb4934;
+            --ansi10: #b8bb26;
+            --ansi11: #fabd2f;
+            --ansi12: #83a598;
+            --ansi13: #d3869b;
+            --ansi14: #8ec07c;
+            --ansi15: #ebdbb2;
+            --bg1: #282828;
+            --bg2: #32302f;
+            --bg3: #3c3836;
+            --bg4: #504945;
+            --fg-hover: rgba(235, 219, 178, 0.8);
+            --fg-focus: #ffffff;
+            --hover-bg: rgba(80, 73, 69, 0.5);
+            --active-bg: rgba(80, 73, 69, 0.5);
+            color-scheme: dark;
+        }
+    }
+    :root {
+        --color-nav-hover-bg: var(--bg2) !important;
+        --color-nav-bg: var(--ansi00) !important;
+        --color-primary: #a9b665 !important;
+        --color-primary-contrast: #282828 !important;
+        --color-primary-dark-1: #a9b665 !important;
+        --color-primary-dark-2: #b2b96f !important;
+        --color-primary-dark-3: #babc79 !important;
+        --color-primary-dark-4: #c3bf83 !important;
+        --color-primary-dark-5: #ccc18d !important;
+        --color-primary-dark-6: #d4c497 !important;
+        --color-primary-dark-7: #ddc7a1 !important;
+        --color-primary-light-1: #a9b665 !important;
+        --color-primary-light-2: #96a15d !important;
+        --color-primary-light-3: #848c55 !important;
+        --color-primary-light-4: #72774d !important;
+        --color-primary-light-5: #5f6145 !important;
+        --color-primary-light-6: #4d4c3d !important;
+        --color-primary-light-7: #3a3735 !important;
+        --color-primary-alpha-10: rgba(169, 182, 101, 0.1) !important;
+        --color-primary-alpha-20: rgba(169, 182, 101, 0.2) !important;
+        --color-primary-alpha-30: rgba(169, 182, 101, 0.3) !important;
+        --color-primary-alpha-40: rgba(169, 182, 101, 0.4) !important;
+        --color-primary-alpha-50: rgba(169, 182, 101, 0.5) !important;
+        --color-primary-alpha-60: rgba(169, 182, 101, 0.6) !important;
+        --color-primary-alpha-70: rgba(169, 182, 101, 0.7) !important;
+        --color-primary-alpha-80: rgba(169, 182, 101, 0.8) !important;
+        --color-primary-alpha-90: rgba(169, 182, 101, 0.9) !important;
+        --color-secondary: #504945 !important;
+        --color-secondary-dark-1: #504945 !important;
+        --color-secondary-dark-2: #5c534d !important;
+        --color-secondary-dark-3: #685e54 !important;
+        --color-secondary-dark-4: #73695c !important;
+        --color-secondary-dark-5: #7f7364 !important;
+        --color-secondary-dark-6: #8b7e6b !important;
+        --color-secondary-dark-7: #978873 !important;
+        --color-secondary-dark-8: #a2927b !important;
+        --color-secondary-dark-9: #ae9d82 !important;
+        --color-secondary-dark-10: #baa88a !important;
+        --color-secondary-dark-11: #c5b292 !important;
+        --color-secondary-dark-12: #d1bd99 !important;
+        --color-secondary-dark-13: #ddc7a1 !important;
+        --color-secondary-light-1: #504945 !important;
+        --color-secondary-light-2: #45403d !important;
+        --color-secondary-light-3: #3a3735 !important;
+        --color-secondary-light-4: #32302f !important;
+        --color-secondary-alpha-10: rgba(80, 73, 69, 0.1) !important;
+        --color-secondary-alpha-20: rgba(80, 73, 69, 0.2) !important;
+        --color-secondary-alpha-30: rgba(80, 73, 69, 0.3) !important;
+        --color-secondary-alpha-40: rgba(80, 73, 69, 0.4) !important;
+        --color-secondary-alpha-50: rgba(80, 73, 69, 0.5) !important;
+        --color-secondary-alpha-60: rgba(80, 73, 69, 0.6) !important;
+        --color-secondary-alpha-70: rgba(80, 73, 69, 0.7) !important;
+        --color-secondary-alpha-80: rgba(80, 73, 69, 0.8) !important;
+        --color-secondary-alpha-90: rgba(80, 73, 69, 0.9) !important;
+        --color-red: #ea6962 !important;
+        --color-orange: #e78a4e !important;
+        --color-yellow: #d8a657 !important;
+        --color-olive: #a9b665 !important;
+        --color-green: #a9b665 !important;
+        --color-teal: #89b482 !important;
+        --color-blue: #7daea3 !important;
+        --color-violet: var(--ansi13) !important;
+        --color-purple: var(--ansi13) !important;
+        --color-pink: var(--ansi13) !important;
+        --color-brown: #e78a4e !important;
+        --color-grey: var(--ansi08) !important;
+        --color-red-light: #ea6962 !important;
+        --color-orange-light: #e78a4e !important;
+        --color-yellow-light: #d8a657 !important;
+        --color-olive-light: #a9b665 !important;
+        --color-green-light: #a9b665 !important;
+        --color-teal-light: #89b482 !important;
+        --color-blue-light: #7daea3 !important;
+        --color-violet-light: var(--ansi13) !important;
+        --color-purple-light: var(--ansi13) !important;
+        --color-pink-light: var(--ansi13) !important;
+        --color-brown-light: #e78a4e !important;
+        --color-grey-light: var(--ansi08) !important;
+        --color-black: #3a3735 !important;
+        --color-gold: #e78a4e !important;
+        --color-white: #282828 !important;
+        --color-diff-removed-word-bg: #7b4440 !important;
+        --color-diff-added-word-bg: #5c6646 !important;
+        --color-diff-removed-row-bg: #4c3432 !important;
+        --color-diff-moved-row-bg: #374141 !important;
+        --color-diff-added-row-bg: #3b4439 !important;
+        --color-diff-removed-row-border: #9b4f4a !important;
+        --color-diff-moved-row-border: #5a7872 !important;
+        --color-diff-added-row-border: #727d4f !important;
+        --color-diff-inactive: #3a3735 !important;
+        --color-error-border: #9b4f4a !important;
+        --color-error-bg: #4c3432 !important;
+        --color-error-text: #ea6962 !important;
+        --color-success-border: #727d4f !important;
+        --color-success-bg: #3b4439 !important;
+        --color-success-text: #a9b665 !important;
+        --color-warning-border: #947443 !important;
+        --color-warning-bg: #4f422e !important;
+        --color-warning-text: #d8a657 !important;
+        --color-info-border: #5a7872 !important;
+        --color-info-bg: #374141 !important;
+        --color-info-text: #7daea3 !important;
+        --color-body: var(--ansi00) !important;
+        --color-box-header: var(--bg3) !important;
+        --color-box-body: var(--bg1) !important;
+        --color-box-body-highlight: var(--bg2) !important;
+        --color-text-dark: #e78a4e !important;
+        --color-text: var(--ansi15) !important;
+        --color-text-hover: var(--fg-hover) !important;
+        --color-text-light: #d8a657 !important;
+        --color-text-light-1: var(--ansi08) !important;
+        --color-text-light-2: var(--ansi15) !important;
+        --color-text-light-3: var(--ansi08) !important;
+        --color-footer: var(--bg1) !important;
+        --color-timeline: var(--bg4) !important;
+        --color-input-text: var(--ansi15) !important;
+        --color-input-background: var(--ansi00) !important;
+        --color-input-toggle-background: var(--bg1) !important;
+        --color-input-border: var(--bg4) !important;
+        --color-input-border-hover: #71665d !important;
+        --color-navbar: var(--bg1) !important;
+        --color-navbar-transparent: var(--bg1) !important;
+        --color-light: var(--bg1) !important;
+        /* --color-light-mimic-enabled: rgba(0, 0, 0, calc(40 / 255 * 222 / 255 / var(--opacity-disabled))); */
+        --color-light-mimic-enabled: rgba(0, 0, 0, 0.136) !important;
+        --color-light-border: var(--bg4) !important;
+        --color-hover: var(--hover-bg) !important;
+        --color-active: var(--active-bg) !important;
+        --color-menu: var(--bg1) !important;
+        --color-card: var(--bg1) !important;
+        --color-markup-table-row: var(--bg3) !important;
+        --color-markup-code-block: var(--ansi00) !important;
+        --color-button: var(--bg3) !important;
+        --color-code-bg: var(--ansi00) !important;
+        --color-code-sidebar-bg: var(--bg1) !important;
+        --color-shadow: #00000060 !important;
+        --color-secondary-bg: var(--bg1) !important;
+        --color-text-focus: var(--fg-focus) !important;
+        --color-expand-button: var(--bg2) !important;
+        --color-placeholder-text: var(--ansi08) !important;
+        --color-editor-line-highlight: var(--bg1) !important;
+        --color-project-board-bg: var(--ansi00) !important;
+        --color-project-board-light-label: #a9b665 !important;
+        --color-caret: var(--color-text) !important;
+        --color-reaction-bg: #ffffff12 !important;
+        --color-reaction-active-bg: var(--color-primary-alpha-40) !important;
+        --color-header-bar: var(--bg1) !important;
+        --color-label-active-bg: var(--bg4) !important;
+        --color-accent: var(--color-primary-light-1) !important;
+        --color-small-accent: var(--color-primary-light-5) !important;
+        --color-active-line: var(--bg1) !important;
+        accent-color: var(--color-accent) !important;
+    }
+    .chroma .nx {
+        color: #ddc7a1
+    }
+    .chroma .c,
+    .chroma .c1,
+    .chroma .ch,
+    .chroma .cm,
+    .chroma .sd {
+        color: #928374
+    }
+    .chroma .k,
+    .chroma .kc,
+    .chroma .kd,
+    .chroma .kn,
+    .chroma .kp,
+    .chroma .kr {
+        color: #ea6962
+    }
+    .chroma .o,
+    .chroma .ow {
+        color: #e78a4e
+    }
+    .chroma .s,
+    .chroma .s1,
+    .chroma .s2,
+    .chroma .sa,
+    .chroma .sb,
+    .chroma .sc,
+    .chroma .sh,
+    .chroma .si,
+    .chroma .sr,
+    .chroma .ss,
+    .chroma .sx,
+    .chroma .nt,
+    .chroma .cpf {
+        color: #89b482
+    }
+    .chroma .m,
+    .chroma .mb,
+    .chroma .mf,
+    .chroma .mh,
+    .chroma .mi,
+    .chroma .mo,
+    .chroma .nl {
+        color: #d3869b
+    }
+    .chroma .kt,
+    .chroma .nc,
+    .chroma .nn,
+    .chroma .nv {
+        color: #d8a657
+    }
+    .chroma .nf,
+    .chroma .nb,
+    .chroma .na {
+        color: #a9b665
+    }
+    .chroma .bp,
+    .chroma .cp,
+    .chroma .ne,
+    .chroma .nd,
+    .chroma .se {
+        color: #7daea3
+    }
+    .ui.primary.button,
+    .ui.primary.buttons .button {
+        background: #a9b665;
+        background-color: #a9b665 !important;
+        color: #282828
+    }
+    .ui.primary.button:hover,
+    .ui.primary.buttons .button:hover {
+        background: rgba(169, 182, 101, 0.8);
+        background-color: rgba(169, 182, 101, 0.8) !important;
+        color: #282828
+    }
+    .ui.green.buttons .button,
+    .ui.green.button {
+        background: #a89984;
+        background-color: #a89984;
+        color: #282828
+    }
+    .ui.green.buttons .button:hover,
+    .ui.green.button:hover {
+        background: rgba(168, 153, 132, 0.8);
+        background-color: rgba(168, 153, 132, 0.8);
+        color: #282828
+    }
+    .ui.labeled.button.disabled > .button,
+    .ui.basic.buttons .button,
+    .ui.basic.button {
+        color: #e78a4e
+    }
+    .ui.labeled.button.disabled > .button:hover,
+    .ui.basic.buttons .button:hover,
+    .ui.basic.button:hover {
+        color: #e78a4e
+    }
+    .repo-title {
+        color: #e78a4e
+    }
+    .repo-buttons button[disabled] ~ .label,
+    .repo-buttons .ui.labeled.button.disabled > .label {
+        color: #a9b665
+    }
+    .ui.basic.labels .label,
+    .ui.basic.label {
+        color: #a9b665
+    }
+    .repository .ui.segment.sub-menu .list .item a:hover,
+    .ui.tabular.menu .item:hover {
+        color: var(--color-text-hover)
+    }
+    .ui.primary.labels .label,
+    .ui.ui.ui.primary.label {
+        color: #282828
+    }
+    .ui.green.labels .label,
+    .ui.ui.ui.green.label {
+        color: #282828
+    }
+    i.grey.icon.icon.icon.icon {
+        color: #928374
+    }
+    * {
+        scrollbar-color: #e78a4e transparent !important
+    }
+    ::-webkit-scrollbar {
+        width: 10px;
+        height: 10px
+    }
+    ::-webkit-scrollbar-thumb {
+        box-shadow: inset 0 0 0 6px #e78a4e !important;
+        border: 2px solid transparent;
+        border-radius: 5px !important
+    }
+    ::-webkit-scrollbar-thumb:window-inactive {
+        box-shadow: inset 0 0 0 6px #e78a4e !important
+    }
+    ::-webkit-scrollbar-thumb:hover {
+        box-shadow: inset 0 0 0 6px #e78a4e !important
+    }
+    ::-webkit-scrollbar-corner {
+        background: transparent
+    }
+    .ui.red.labels .label,
+    .ui.ui.ui.red.label,
+    .ui.red.button,
+    .ui.red.buttons .button {
+        background: #ea6962;
+        background-color: #ea6962;
+        color: #282828
+    }
+    .ui.red.labels .label:hover,
+    .ui.ui.ui.red.label:hover,
+    .ui.red.button:hover,
+    .ui.red.buttons .button:hover {
+        background: rgba(234, 105, 98, 0.8);
+        background-color: rgba(234, 105, 98, 0.8);
+        color: #282828
+    }
+    .ui.grey.labels .label,
+    .ui.ui.ui.grey.label,
+    .ui.grey.button,
+    .ui.grey.buttons .button {
+        color: #282828
+    }
+    .ui.grey.labels .label:hover,
+    .ui.ui.ui.grey.label:hover,
+    .ui.grey.button:hover,
+    .ui.grey.buttons .button:hover {
+        color: #282828
+    }
+    .ui.orange.labels .label,
+    .ui.ui.ui.orange.label,
+    .ui.orange.button,
+    .ui.orange.buttons .button {
+        background: #e78a4e;
+        background-color: #e78a4e;
+        color: #282828
+    }
+    .ui.orange.labels .label:hover,
+    .ui.ui.ui.orange.label:hover,
+    .ui.orange.button:hover,
+    .ui.orange.buttons .button:hover {
+        background: rgba(231, 138, 78, 0.8);
+        background-color: rgba(231, 138, 78, 0.8);
+        color: #282828
+    }
+}
