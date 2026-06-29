@@ -46,6 +46,7 @@ domain("code.forgejo.org") {
             --ansi13: #8f3f71;
             --ansi14: #427b58;
             --ansi15: #3c3836;
+            --the-primary-color: var(--ansi12); /* TODO(anas): make this Customizable */
             --bg1: #ebdbb2;
             --bg2: #d5c4a1;
             --bg3: #bdae93;
@@ -98,6 +99,7 @@ domain("code.forgejo.org") {
             --ansi13: #8f3f71;
             --ansi14: #427b58;
             --ansi15: #3c3836;
+            --the-primary-color: var(--ansi12); /* TODO(anas): make this Customizable */
             --bg1: #ebdbb2;
             --bg2: #d5c4a1;
             --bg3: #bdae93;
@@ -150,6 +152,7 @@ domain("code.forgejo.org") {
             --ansi13: #8f3f71;
             --ansi14: #427b58;
             --ansi15: #3c3836;
+            --the-primary-color: var(--ansi12); /* TODO(anas): make this Customizable */
             --bg1: #ebdbb2;
             --bg2: #d5c4a1;
             --bg3: #bdae93;
@@ -202,6 +205,7 @@ domain("code.forgejo.org") {
             --ansi13: #d3869b;
             --ansi14: #8ec07c;
             --ansi15: #ebdbb2;
+            --the-primary-color: var(--ansi12); /* TODO(anas): make this Customizable */
             --bg1: #3c3836;
             --bg2: #45403d;
             --bg3: #504945;
@@ -254,6 +258,7 @@ domain("code.forgejo.org") {
             --ansi13: #d3869b;
             --ansi14: #8ec07c;
             --ansi15: #ebdbb2;
+            --the-primary-color: var(--ansi12); /* TODO(anas): make this Customizable */
             --bg1: #32302f;
             --bg2: #3c3836;
             --bg3: #45403d;
@@ -306,6 +311,7 @@ domain("code.forgejo.org") {
             --ansi13: #d3869b;
             --ansi14: #8ec07c;
             --ansi15: #ebdbb2;
+            --the-primary-color: var(--ansi12); /* TODO(anas): make this Customizable */
             --bg1: #282828;
             --bg2: #32302f;
             --bg3: #3c3836;
@@ -342,7 +348,7 @@ domain("code.forgejo.org") {
     :root {
         --color-nav-hover-bg: var(--bg2) !important;
         --color-nav-bg: var(--ansi00) !important;
-        --color-primary: #a9b665 !important;
+        --color-primary: var(--the-primary-color) !important;
         --color-primary-contrast: #282828 !important;
         --color-primary-dark-1: #a9b665 !important;
         --color-primary-dark-2: #b2b96f !important;
@@ -449,11 +455,10 @@ domain("code.forgejo.org") {
         --color-text-dark: #e78a4e !important;
         --color-text: var(--ansi15) !important;
         --color-text-hover: var(--fg-hover) !important;
-        --color-text-light: var(--color-yellow) !important;
-        --color-text-light-1: var(--ansi08) !important;
+        --color-text-light: var(--ansi08) !important;
+        --color-text-light-1: var(--ansi07) !important;
         --color-text-light-2: var(--ansi15) !important;
         --color-text-light-3: var(--ansi08) !important;
-        --color-label-text: var(--ansi08) !important;
         --color-footer: var(--bg1) !important;
         --color-timeline: var(--bg4) !important;
         --color-input-text: var(--ansi15) !important;
@@ -492,6 +497,8 @@ domain("code.forgejo.org") {
         --color-accent: var(--color-primary-light-1) !important;
         --color-small-accent: var(--color-primary-light-5) !important;
         --color-active-line: var(--bg1) !important;
+        --color-label-text: var(--ansi15) !important;
+        --color-label-bg: var(--bg3) !important;
         accent-color: var(--color-accent) !important;
     }
     .chroma .nx {
@@ -610,6 +617,10 @@ domain("code.forgejo.org") {
     .ui.primary.labels .label,
     .ui.ui.ui.primary.label {
         color: #282828 !important
+    }
+    .ui.menu .active.item>.label,
+    .ui.menu.tabs-with-labels .item:hover>.label {
+        background: var(--ansi08);
     }
     .ui.green.labels .label,
     .ui.ui.ui.green.label {
