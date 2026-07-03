@@ -11,21 +11,19 @@ jobs:
     runs-on: anas-local-action-runner
     steps:
       - uses: actions/checkout@v7
-        with:
-          fetch-depth: 0
-      - name: Install Deps
+
+      - name: Install dependencies
         run: |
           apt-get update
-          apt-get install -y jq curl 
-      - name: Create release and upload asset
+          apt-get install -y jq curl
+
+      - name: Create release
+        id: create_release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           API_URL: ${{ github.api_url || format('{0}/api/v1', github.server_url) }}
         run: |
           TAG="${GITHUB_REF_NAME}"
-          NOTES="Release ${TAG}"
-
-          # Create the release
           echo "Creating release for tag ${TAG}..."
           RESPONSE=$(curl -sS -w "\n%{http_code}" \
             -X POST \
@@ -33,7 +31,7 @@ jobs:
             -H "Accept: application/json" \
             -H "Content-Type: application/json" \
             "${API_URL}/repos/${{ github.repository }}/releases" \
-            -d "$(jq -n --arg tag "$TAG" --arg notes "$NOTES" '{tag_name: $tag, name: $tag, body: $notes}')")
+            -d "$(jq -n --arg tag "$TAG" --arg notes "$TAG" '{tag_name: $tag, name: $tag, body: "Release \($tag)"}')")
 
           HTTP_CODE="$(echo "$RESPONSE" | tail -1)"
           BODY="$(echo "$RESPONSE" | sed '$d')"
@@ -44,38 +42,38 @@ jobs:
             exit 1
           fi
 
-          # Generate the flattened css files
-          mkdir -p build
-          VARIANTS=(
-            'light-soft'
-            'light'
-            'light-hard'
-            'dark-soft'
-            'dark'
-            'dark-hard'
-          )
+          UPLOAD_URL="$(echo "$BODY" | jq -r '.upload_url' | sed 's/{?name,.*}//')"
+          echo "upload_url=${UPLOAD_URL}" >> "$GITHUB_OUTPUT"
 
-          for variant in "${VARIANTS[@]}"; do
-            ./flatten.sh forgejo-gruvbox.user.styl "${variant}" --strip-important \
+      - name: Generate flattened CSS files
+        run: |
+          mkdir -p build
+          for variant in light-soft light light-hard dark-soft dark dark-hard; do
+            ./flatten.sh forgejo-gruvbox.user.styl "$variant" --strip-important \
               "build/forgejo-gruvbox-${variant}.css"
           done
 
-          # Upload the assets
-          ASSETS=(
-            "forgejo-gruvbox.user.styl"
-            "${build[@]}"
-          )
+      - name: Upload forgejo-gruvbox.user.styl
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          curl -sS -w "\n%{http_code}" \
+            -X POST \
+            -H "Authorization: Bearer $GITHUB_TOKEN" \
+            -H "Accept: application/json" \
+            -F "attachment=@forgejo-gruvbox.user.styl" \
+            "${{ steps.create_release.outputs.upload_url }}?name=forgejo-gruvbox.user.styl"
 
-          UPLOAD_URL="$(echo "$BODY" | jq -r '.upload_url' | sed 's/{?name,.*}//')"
-
-          for asset in "${ASSETS[@]}"; do
-            filename="$(basename "$asset")"
-
-            echo "Uploading ${filename} to ${UPLOAD_URL}..."
+      - name: Upload CSS assets
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          for file in build/*.css; do
+            filename="$(basename "$file")"
             curl -sS -w "\n%{http_code}" \
               -X POST \
               -H "Authorization: Bearer $GITHUB_TOKEN" \
               -H "Accept: application/json" \
-              -F "attachment=@${asset}" \
-              "${UPLOAD_URL}?name=${filename}"
+              -F "attachment=@${file}" \
+              "${{ steps.create_release.outputs.upload_url }}?name=${filename}"
           done
