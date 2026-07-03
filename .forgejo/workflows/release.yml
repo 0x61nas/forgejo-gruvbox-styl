@@ -44,12 +44,38 @@ jobs:
             exit 1
           fi
 
-          # Upload the asset
+          # Generate the flattened css files
+          mkdir -p build
+          VARIANTS=(
+            'light-soft'
+            'light'
+            'light-hard'
+            'dark-soft'
+            'dark'
+            'dark-hard'
+          )
+
+          for variant in "${VARIANTS[@]}"; do
+            ./flatten.sh forgejo-gruvbox.user.styl "${variant}" --strip-important \
+              "build/forgejo-gruvbox-${variant}.css"
+          done
+
+          # Upload the assets
+          ASSETS=(
+            "forgejo-gruvbox.user.styl"
+            "${build[@]}"
+          )
+
           UPLOAD_URL="$(echo "$BODY" | jq -r '.upload_url' | sed 's/{?name,.*}//')"
-          echo "Uploading asset to ${UPLOAD_URL}..."
-          curl -sS -w "\n%{http_code}" \
-            -X POST \
-            -H "Authorization: Bearer $GITHUB_TOKEN" \
-            -H "Accept: application/json" \
-            -F "attachment=@forgejo-gruvbox.user.styl" \
-            "${UPLOAD_URL}?name=forgejo-gruvbox.user.styl"
+
+          for asset in "${ASSETS[@]}"; do
+            filename="$(basename "$asset")"
+
+            echo "Uploading ${filename} to ${UPLOAD_URL}..."
+            curl -sS -w "\n%{http_code}" \
+              -X POST \
+              -H "Authorization: Bearer $GITHUB_TOKEN" \
+              -H "Accept: application/json" \
+              -F "attachment=@${asset}" \
+              "${UPLOAD_URL}?name=${filename}"
+          done
