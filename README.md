@@ -8,6 +8,8 @@ Customizable Gruvbox color scheme for Forgejo frontend.
 
 ## Installation
 
+### Client-side (Stylus)
+
 1. Install the [Stylus](https://chrome.google.com/webstore/detail/stylus/clngdbkpkpeebahjckkjfobafhncgmne) extension for Chrome or [Stylus](https://addons.mozilla.org/firefox/addon/styl-us/) for Firefox.
 2. Click the badge above to install directly from GitHub.
 3. Done -- updates are automatic.
@@ -23,6 +25,7 @@ Grab a `forgejo-gruvbox-*.css` file from the latest release on any of these remo
 - **GitHub**: https://github.com/0x61nas/forgejo-gruvbox-styl/releases
 - **Codeberg**: https://codeberg.org/0x61nas/forgejo-gruvbox-styl/releases
 - **Disroot**: https://git.disroot.org/anas/forgejo-gruvbox-styl/releases
+- **Codefloe**: https://codefloe.com/anas/forgejo-gruvbox-styl/releases
 
 **Option 2 -- Generate from source**
 
