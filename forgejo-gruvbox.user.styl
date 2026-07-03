@@ -27,6 +27,18 @@ domain("bolha.dev"),
 domain("opencommit.eu"),
 domain("git.kaki87.net"),
 domain("code.forgejo.org") {
+    .markup [src$="#gh-light-mode-only"],
+    .markup [src$="#light-mode-only"],
+    .markup [href$="#gh-light-mode-only"],
+    .markup [href$="#light-mode-only"] {
+        display: none
+    }
+    .markup [src$="#gh-dark-mode-only"],
+    .markup [src$="#dark-mode-only"],
+    .markup [href$="#gh-dark-mode-only"],
+    .markup [href$="#dark-mode-only"] {
+        display: unset
+    }
     if theme-variant is light-soft-theme-variant {
         :root {
             --is-dark-theme: false !important;
@@ -499,18 +511,91 @@ domain("code.forgejo.org") {
         --color-active-line: var(--bg1) !important;
         --color-label-text: var(--gruvbox-ansi15) !important;
         --color-label-bg: var(--bg3) !important;
+        --color-label-hover-bg: var(--bg4) !important;
+        --color-label-bg-alt: var(--bg3) !important;
+        --color-primary-hover: var(--color-primary-light-1) !important;
+        --color-primary-active: var(--color-primary-light-2) !important;
+        --color-secondary-hover: var(--color-secondary-light-1) !important;
+        --color-secondary-active: var(--color-secondary-light-2) !important;
+        --color-ansi-black: var(--gruvbox-ansi00) !important;
+        --color-ansi-red: var(--gruvbox-ansi01) !important;
+        --color-ansi-green: var(--gruvbox-ansi02) !important;
+        --color-ansi-yellow: var(--gruvbox-ansi03) !important;
+        --color-ansi-blue: var(--gruvbox-ansi04) !important;
+        --color-ansi-magenta: var(--gruvbox-ansi05) !important;
+        --color-ansi-cyan: var(--gruvbox-ansi06) !important;
+        --color-ansi-white: var(--gruvbox-ansi07) !important;
+        --color-ansi-bright-black: var(--gruvbox-ansi08) !important;
+        --color-ansi-bright-red: var(--gruvbox-ansi09) !important;
+        --color-ansi-bright-green: var(--gruvbox-ansi10) !important;
+        --color-ansi-bright-yellow: var(--gruvbox-ansi11) !important;
+        --color-ansi-bright-blue: var(--gruvbox-ansi12) !important;
+        --color-ansi-bright-magenta: var(--gruvbox-ansi13) !important;
+        --color-ansi-bright-cyan: var(--gruvbox-ansi14) !important;
+        --color-ansi-bright-white: var(--gruvbox-ansi15) !important;
+        --color-tooltip-text: var(--gruvbox-ansi15) !important;
+        --color-tooltip-bg: var(--bg4) !important;
+        --color-overlay-backdrop: rgba(0, 0, 0, 0.6) !important;
+        --color-selection-bg: var(--gruvbox-ansi15) !important;
+        --color-selection-fg: var(--gruvbox-ansi00) !important;
+        --color-header-wrapper: var(--color-navbar) !important;
+        --color-header-wrapper-transparent: var(--color-navbar-transparent) !important;
+        --color-secondary-nav-bg: var(--color-body) !important;
+        --color-highlight-fg: var(--color-primary-light-4) !important;
+        --color-highlight-bg: var(--color-primary-alpha-20) !important;
+        --color-error-bg-active: var(--error-border) !important;
+        --color-error-bg-hover: var(--error-border) !important;
+        --color-reaction-hover-bg: var(--color-primary-alpha-40) !important;
+        --color-indicator-offline: var(--gruvbox-ansi08) !important;
+        --color-indicator-idle: var(--color-green) !important;
+        --color-indicator-active: var(--color-blue) !important;
+        --checkerboard-color-1: var(--bg2) !important;
+        --checkerboard-color-2: var(--bg3) !important;
+        --fancy-card-bg: var(--bg2) !important;
+        --fancy-card-border: var(--bg3) !important;
+        --color-console-fg: var(--gruvbox-ansi15) !important;
+        --color-console-fg-subtle: var(--gruvbox-ansi08) !important;
+        --color-console-bg: var(--gruvbox-ansi00) !important;
+        --color-console-border: var(--bg3) !important;
+        --color-console-hover-bg: var(--hover-bg) !important;
+        --color-console-active-bg: var(--active-bg) !important;
+        --color-console-menu-bg: var(--bg2) !important;
+        --color-console-menu-border: var(--bg3) !important;
+        --color-pure-black: #000000 !important;
+        --color-red-badge: var(--gruvbox-ansi01) !important;
+        --color-red-badge-bg: rgba(204, 36, 29, 0.2) !important;
+        --color-red-badge-hover-bg: rgba(204, 36, 29, 0.4) !important;
+        --color-green-badge: var(--gruvbox-ansi02) !important;
+        --color-green-badge-bg: rgba(152, 151, 38, 0.2) !important;
+        --color-green-badge-hover-bg: rgba(152, 151, 38, 0.4) !important;
+        --color-yellow-badge: var(--gruvbox-ansi03) !important;
+        --color-yellow-badge-bg: rgba(215, 153, 33, 0.2) !important;
+        --color-yellow-badge-hover-bg: rgba(215, 153, 33, 0.4) !important;
+        --color-orange-badge: #e78a4e !important;
+        --color-orange-badge-bg: rgba(231, 138, 78, 0.2) !important;
+        --color-orange-badge-hover-bg: rgba(231, 138, 78, 0.4) !important;
         accent-color: var(--color-accent) !important;
     }
-    .chroma .nx {
-        color: var(--gruvbox-ansi15)
-    }
+    /* Chroma syntax highlighting — Gruvbox palette */
+    .chroma .n { color: var(--gruvbox-ansi15) } /* Name */
+    .chroma .nx { color: var(--gruvbox-ansi15) } /* NameOther */
+    .chroma .ni { color: var(--gruvbox-ansi15) } /* NameEntity */
+    .chroma .p { color: var(--gruvbox-ansi15) } /* Punctuation */
+    .chroma .l { color: var(--gruvbox-ansi15) } /* Literal */
+    .chroma .ld {} /* LiteralDate */
+    .chroma .py {} /* NameProperty */
+    .chroma .fm {} /* NameFunctionMagic */
+    .chroma .vm {} /* NameVariableMagic */
+    .chroma .gl {} /* GenericUnderline */
     .chroma .c,
     .chroma .c1,
     .chroma .ch,
     .chroma .cm,
+    .chroma .cs,
     .chroma .sd {
-        color: var(--gruvbox-ansi08)
-    }
+        color: var(--gruvbox-ansi08);
+        font-style: italic
+    } /* Comment */
     .chroma .k,
     .chroma .kc,
     .chroma .kd,
@@ -518,11 +603,11 @@ domain("code.forgejo.org") {
     .chroma .kp,
     .chroma .kr {
         color: var(--gruvbox-ansi01)
-    }
+    } /* Keyword */
     .chroma .o,
     .chroma .ow {
         color: var(--gruvbox-ansi03)
-    }
+    } /* Operator */
     .chroma .s,
     .chroma .s1,
     .chroma .s2,
@@ -534,36 +619,219 @@ domain("code.forgejo.org") {
     .chroma .sr,
     .chroma .ss,
     .chroma .sx,
-    .chroma .nt,
+    .chroma .dl,
     .chroma .cpf {
         color: var(--gruvbox-ansi14)
-    }
+    } /* LiteralString */
     .chroma .m,
     .chroma .mb,
     .chroma .mf,
     .chroma .mh,
     .chroma .mi,
     .chroma .mo,
-    .chroma .nl {
+    .chroma .il {
         color: var(--gruvbox-ansi13)
-    }
+    } /* LiteralNumber */
+    .chroma .no { color: var(--gruvbox-ansi13) } /* NameConstant */
+    .chroma .nl { color: var(--gruvbox-ansi13) } /* NameLabel */
     .chroma .kt,
     .chroma .nc,
-    .chroma .nn,
-    .chroma .nv {
+    .chroma .nn {
         color: var(--gruvbox-ansi03)
-    }
-    .chroma .nf,
-    .chroma .nb,
-    .chroma .na {
+    } /* Type-like */
+    .chroma .nv,
+    .chroma .vc,
+    .chroma .vg,
+    .chroma .vi {
+        color: var(--gruvbox-ansi03)
+    } /* Variable-like */
+    .chroma .nf { color: #a9b665 } /* NameFunction */
+    .chroma .nb { color: #a9b665 } /* NameBuiltin */
+    .chroma .na { color: #a9b665 } /* NameAttribute */
+    .chroma .bp,
+    .chroma .ne,
+    .chroma .nd {
+        color: var(--gruvbox-ansi12)
+    } /* Name labels / Preproc */
+    .chroma .cp { color: var(--gruvbox-ansi12) } /* CommentPreproc */
+    .chroma .se { color: var(--gruvbox-ansi12) } /* LiteralStringEscape */
+    .chroma .nt { color: var(--gruvbox-ansi01) } /* NameTag */
+    .chroma .gd { color: var(--gruvbox-ansi01); background-color: var(--diff-removed-row-bg) } /* GenericDeleted */
+    .chroma .ge { color: var(--gruvbox-ansi15); font-style: italic } /* GenericEmph */
+    .chroma .gh { color: var(--gruvbox-ansi12) } /* GenericHeading */
+    .chroma .gi { color: var(--gruvbox-ansi02); background-color: var(--diff-added-row-bg) } /* GenericInserted */
+    .chroma .go { color: var(--gruvbox-ansi08) } /* GenericOutput */
+    .chroma .gp { color: var(--gruvbox-ansi15); font-weight: bold } /* GenericPrompt */
+    .chroma .gr { color: var(--gruvbox-ansi01) } /* GenericError */
+    .chroma .gs { color: var(--gruvbox-ansi15); font-weight: bold } /* GenericStrong */
+    .chroma .gt { color: var(--gruvbox-ansi01) } /* GenericTraceback */
+    .chroma .gu { color: var(--gruvbox-ansi08) } /* GenericSubheading */
+    .chroma .w { color: var(--gruvbox-ansi08) } /* TextWhitespace */
+    .chroma .err {} /* Error — not styled, too many false positives */
+
+    /* CodeMirror — Gruvbox palette */
+    .CodeMirror.cm-s-default .cm-property,
+    .CodeMirror.cm-s-paper .cm-property {
         color: #a9b665
     }
-    .chroma .bp,
-    .chroma .cp,
-    .chroma .ne,
-    .chroma .nd,
-    .chroma .se {
+    .CodeMirror.cm-s-default .cm-header,
+    .CodeMirror.cm-s-paper .cm-header {
         color: var(--gruvbox-ansi12)
+    }
+    .CodeMirror.cm-s-default .cm-quote,
+    .CodeMirror.cm-s-paper .cm-quote {
+        color: var(--gruvbox-ansi03)
+    }
+    .CodeMirror.cm-s-default .cm-keyword,
+    .CodeMirror.cm-s-paper .cm-keyword {
+        color: var(--gruvbox-ansi01)
+    }
+    .CodeMirror.cm-s-default .cm-atom,
+    .CodeMirror.cm-s-paper .cm-atom {
+        color: var(--gruvbox-ansi13)
+    }
+    .CodeMirror.cm-s-default .cm-number,
+    .CodeMirror.cm-s-paper .cm-number {
+        color: var(--gruvbox-ansi13)
+    }
+    .CodeMirror.cm-s-default .cm-def,
+    .CodeMirror.cm-s-paper .cm-def {
+        color: var(--gruvbox-ansi15)
+    }
+    .CodeMirror.cm-s-default .cm-variable-2,
+    .CodeMirror.cm-s-paper .cm-variable-2 {
+        color: var(--gruvbox-ansi04)
+    }
+    .CodeMirror.cm-s-default .cm-variable-3,
+    .CodeMirror.cm-s-paper .cm-variable-3 {
+        color: var(--gruvbox-ansi14)
+    }
+    .CodeMirror.cm-s-default .cm-comment,
+    .CodeMirror.cm-s-paper .cm-comment {
+        color: var(--gruvbox-ansi08);
+        font-style: italic
+    }
+    .CodeMirror.cm-s-default .cm-string,
+    .CodeMirror.cm-s-paper .cm-string {
+        color: var(--gruvbox-ansi14)
+    }
+    .CodeMirror.cm-s-default .cm-string-2,
+    .CodeMirror.cm-s-paper .cm-string-2 {
+        color: var(--gruvbox-ansi03)
+    }
+    .CodeMirror.cm-s-default .cm-meta,
+    .CodeMirror.cm-s-paper .cm-meta,
+    .CodeMirror.cm-s-default .cm-qualifier,
+    .CodeMirror.cm-s-paper .cm-qualifier {
+        color: var(--gruvbox-ansi13)
+    }
+    .CodeMirror.cm-s-default .cm-builtin,
+    .CodeMirror.cm-s-paper .cm-builtin {
+        color: var(--gruvbox-ansi12)
+    }
+    .CodeMirror.cm-s-default .cm-bracket,
+    .CodeMirror.cm-s-paper .cm-bracket {
+        color: var(--gruvbox-ansi15)
+    }
+    .CodeMirror.cm-s-default .cm-tag,
+    .CodeMirror.cm-s-paper .cm-tag {
+        color: var(--gruvbox-ansi01)
+    }
+    .CodeMirror.cm-s-default .cm-attribute,
+    .CodeMirror.cm-s-paper .cm-attribute {
+        color: #a9b665
+    }
+    .CodeMirror.cm-s-default .cm-hr,
+    .CodeMirror.cm-s-paper .cm-hr {
+        color: var(--gruvbox-ansi08)
+    }
+    .CodeMirror.cm-s-default .cm-url,
+    .CodeMirror.cm-s-paper .cm-url {
+        color: var(--gruvbox-ansi12)
+    }
+    .CodeMirror.cm-s-default .cm-link,
+    .CodeMirror.cm-s-paper .cm-link {
+        color: var(--gruvbox-ansi12)
+    }
+    .CodeMirror.cm-s-default .cm-error,
+    .CodeMirror.cm-s-paper .cm-error {
+        color: var(--gruvbox-ansi01)
+    }
+
+    /* invert emojis that are hard to read otherwise */
+    .emoji[aria-label="check mark"],
+    .emoji[aria-label="currency exchange"],
+    .emoji[aria-label="TOP arrow"],
+    .emoji[aria-label="END arrow"],
+    .emoji[aria-label="ON! arrow"],
+    .emoji[aria-label="SOON arrow"],
+    .emoji[aria-label="heavy dollar sign"],
+    .emoji[aria-label="copyright"],
+    .emoji[aria-label="registered"],
+    .emoji[aria-label="trade mark"],
+    .emoji[aria-label="multiply"],
+    .emoji[aria-label="plus"],
+    .emoji[aria-label="minus"],
+    .emoji[aria-label="divide"],
+    .emoji[aria-label="curly loop"],
+    .emoji[aria-label="double curly loop"],
+    .emoji[aria-label="wavy dash"],
+    .emoji[aria-label="paw prints"],
+    .emoji[aria-label="musical note"],
+    .emoji[aria-label="musical notes"] {
+        filter: invert(100%) hue-rotate(180deg)
+    }
+    .ui.secondary.vertical.menu {
+        border-radius: 0.28571429rem;
+        overflow: hidden
+    }
+    .ui.basic.primary.button.item {
+        background-color: var(--color-active) !important;
+        color: var(--color-text) !important;
+        box-shadow: none !important
+    }
+    .ui.red.label.notification_count,
+    .ui.primary.label,
+    .ui.primary.labels .label {
+        background-color: var(--color-primary-light-3) !important
+    }
+    .ui.labeled.icon.buttons > .button > .icon,
+    .ui.labeled.icon.button > .icon {
+        background-color: var(--color-light) !important
+    }
+    #review-box .review-comments-counter {
+        background-color: var(--color-shadow) !important;
+        color: var(--color-white) !important;
+        margin-left: 0.5em
+    }
+    .ui.basic.labels .primary.label,
+    .ui.ui.ui.basic.primary.label {
+        color: var(--color-text-dark) !important
+    }
+    .ui.yellow.label.pending-label {
+        color: var(--color-warning-text) !important
+    }
+    strong.attention-important, svg.attention-important {
+        color: var(--color-violet-light)
+    }
+    strong.attention-note, svg.attention-note {
+        color: var(--color-blue-light)
+    }
+    strong.attention-caution, svg.attention-caution {
+        color: var(--color-red-light)
+    }
+    .ui.basic.red.button {
+        background-color: var(--color-red);
+        color: var(--color-white)
+    }
+    .ui.basic.red.button:hover,
+    .ui.basic.red.button:focus {
+        background-color: var(--color-red-dark-1);
+        color: var(--color-white)
+    }
+    .ui.basic.red.button:active {
+        background-color: var(--color-red-dark-2);
+        color: var(--color-white)
     }
     .ui.primary.button,
     .ui.primary.buttons .button {
