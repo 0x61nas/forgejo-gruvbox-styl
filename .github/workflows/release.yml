@@ -1,0 +1,19 @@
+name: Create a Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v7
+      - uses: softprops/action-gh-release@v3
+        with:
+          files: forgejo-gruvbox.user.styl
+          generate_release_notes: true
