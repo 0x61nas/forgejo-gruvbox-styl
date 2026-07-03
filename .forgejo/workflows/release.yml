@@ -1,0 +1,55 @@
+name: Create a Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+jobs:
+  release:
+    runs-on: anas-local-action-runner
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+      - name: Install Deps
+        run: |
+          apt-get update
+          apt-get install -y jq curl 
+      - name: Create release and upload asset
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          API_URL: ${{ github.api_url || format('{0}/api/v1', github.server_url) }}
+        run: |
+          TAG="${GITHUB_REF_NAME}"
+          NOTES="Release ${TAG}"
+
+          # Create the release
+          echo "Creating release for tag ${TAG}..."
+          RESPONSE=$(curl -sS -w "\n%{http_code}" \
+            -X POST \
+            -H "Authorization: Bearer $GITHUB_TOKEN" \
+            -H "Accept: application/json" \
+            -H "Content-Type: application/json" \
+            "${API_URL}/repos/${{ github.repository }}/releases" \
+            -d "$(jq -n --arg tag "$TAG" --arg notes "$NOTES" '{tag_name: $tag, name: $tag, body: $notes}')")
+
+          HTTP_CODE="$(echo "$RESPONSE" | tail -1)"
+          BODY="$(echo "$RESPONSE" | sed '$d')"
+
+          if [ "$HTTP_CODE" != "201" ]; then
+            echo "Failed to create release. HTTP $HTTP_CODE"
+            echo "$BODY"
+            exit 1
+          fi
+
+          # Upload the asset
+          UPLOAD_URL="$(echo "$BODY" | jq -r '.upload_url' | sed 's/{?name,.*}//')"
+          echo "Uploading asset to ${UPLOAD_URL}..."
+          curl -sS -w "\n%{http_code}" \
+            -X POST \
+            -H "Authorization: Bearer $GITHUB_TOKEN" \
+            -H "Accept: application/json" \
+            -F "attachment=@forgejo-gruvbox.user.styl" \
+            "${UPLOAD_URL}?name=forgejo-gruvbox.user.styl"
