@@ -13,7 +13,18 @@ jobs:
       contents: write
     steps:
       - uses: actions/checkout@v7
+
+      - name: Generate flattened CSS files
+        run: |
+          mkdir -p build
+          for variant in light-soft light light-hard dark-soft dark dark-hard; do
+            ./flatten.sh forgejo-gruvbox.user.styl "$variant" --strip-important \
+              "build/forgejo-gruvbox-${variant}.css"
+          done
+
       - uses: softprops/action-gh-release@v3
         with:
-          files: forgejo-gruvbox.user.styl
+          files: |
+            forgejo-gruvbox.user.styl
+            build/*.css
           generate_release_notes: true
