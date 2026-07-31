@@ -361,9 +361,9 @@ domain("code.forgejo.org") {
         --color-nav-hover-bg: var(--bg2) !important;
         --color-nav-bg: var(--gruvbox-ansi00) !important;
         --color-primary: var(--the-primary-color) !important;
-        --color-primary-contrast: #282828 !important;
+        --color-primary-contrast: var(--color-ansi-black) !important;
         --color-primary-dark-1: #a9b665 !important;
-        --color-primary-dark-2: #b2b96f !important;
+        --color-primary-dark-2: var(--gruvbox-ansi10) !important;
         --color-primary-dark-3: #babc79 !important;
         --color-primary-dark-4: #c3bf83 !important;
         --color-primary-dark-5: #ccc18d !important;
@@ -464,10 +464,10 @@ domain("code.forgejo.org") {
         --color-box-header: var(--bg3) !important;
         --color-box-body: var(--bg1) !important;
         --color-box-body-highlight: var(--bg2) !important;
-        --color-text-dark: #e78a4e !important;
+        --color-text-dark: var(--the-primary-color) !important;
         --color-text: var(--gruvbox-ansi15) !important;
         --color-text-hover: var(--fg-hover) !important;
-        --color-text-light: var(--gruvbox-ansi08) !important;
+        --color-text-light: var(--gruvbox-ansi15) !important;
         --color-text-light-1: var(--gruvbox-ansi07) !important;
         --color-text-light-2: var(--gruvbox-ansi15) !important;
         --color-text-light-3: var(--gruvbox-ansi08) !important;
@@ -509,7 +509,7 @@ domain("code.forgejo.org") {
         --color-accent: var(--color-primary-light-1) !important;
         --color-small-accent: var(--color-primary-light-5) !important;
         --color-active-line: var(--bg1) !important;
-        --color-label-text: var(--gruvbox-ansi15) !important;
+        --color-label-text: var(--color-text) !important;
         --color-label-bg: var(--bg3) !important;
         --color-label-hover-bg: var(--bg4) !important;
         --color-label-bg-alt: var(--bg3) !important;
@@ -898,7 +898,7 @@ domain("code.forgejo.org") {
         color: var(--gruvbox-ansi08) !important
     }
     * {
-        scrollbar-color: #e78a4e transparent !important
+        scrollbar-color: var(--color-accent) transparent !important;
     }
     ::-webkit-scrollbar {
         width: 10px;
